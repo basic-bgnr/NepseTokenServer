@@ -1,4 +1,4 @@
-#Info 
+#Infos 
 Micro Service to Run usable Nepse Authentication Token 
 Runs on flask server 
  
