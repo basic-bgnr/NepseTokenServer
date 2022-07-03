@@ -1,7 +1,7 @@
 from NepseTokenLib import NepseToken
 from threading import Semaphore, Thread 
 import time
-
+from requests.exceptions import RequestException
 class NepseTokenManager:
     def __init__(self):
         self.nepse_token = NepseToken()
@@ -14,12 +14,16 @@ class NepseTokenManager:
 
     def update(self):
         while True:
-            self.semaphore.acquire()
+            # self.semaphore.acquire()
             # print('updating ......')
-            self.token = self.nepse_token.getValidToken()
+            try:
+                self.token = self.nepse_token.getValidToken()
+                time.sleep(self.freq)
+            except:
+                continue
             # print('update complete.')
-            self.semaphore.release()
-            time.sleep(self.freq)
+            # self.semaphore.release()
+            
     
     def getValidToken(self):
-        return self.token
+        return "Server not Initialized" if self.token is None else self.token
